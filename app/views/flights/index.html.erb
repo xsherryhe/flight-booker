@@ -1,0 +1,23 @@
+<h1>Search Flights</h1>
+
+<%= form_with method: :get do |form| %>
+  <div class="field">
+    <%= form.label :departure_time, 'Departure date:' %>
+    <%= form.date_select :departure_time,
+                         start_year: @start_year,
+                         end_year: @end_year,
+                         order: %i[month day year] %>
+  </div>
+  <div class="field">
+    <%= form.label :departure_airport_id, 'Departure airport:' %>
+    <%= form.collection_select :departure_airport_id, @airport_options, :id, :name_code_display %>
+  </div>
+  <div class="field">
+    <%= form.label :arrival_airport_id, 'Arrival airport:' %>
+    <%= form.collection_select :arrival_airport_id, @airport_options, :id, :name_code_display %>
+  </div>
+  <div class="field">
+    <%= form.label :number_of_passengers, 'Number of passengers:' %>
+    <%= form.select :number_of_passengers, options_for_select((1..4)) %>
+  </div>
+<% end %>
