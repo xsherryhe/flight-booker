@@ -27,6 +27,9 @@ Seat
 
 Flight
   identifier string
+  departure time datetime
+  arrival time datetime
+  duration as model attribute
 
   has_many :seats
   has_many :passengers, through: :seats
@@ -36,36 +39,39 @@ Flight
 
 Airline
   name string
-  code string
 
   has_many :flights
   has_many :bookings, through: :flights
 
 Airport
--name string
+  name string
+  code string
 
-belongs_to :city
-has_many :departing_flights, foreign_key: departure_airport_id
-has_many :arriving_flights, foreign_key: arrival_airport_id
-has_many :departing_passengers, through: :departing_flights, source: :passengers
-has_many :arriving_passengers, through: :arriving_flights, source: :passengers
+  has_many :departing_flights, foreign_key: departure_airport_id
+  has_many :arriving_flights, foreign_key: arrival_airport_id
+  has_many :departing_passengers, through: :departing_flights, source: :passengers
+  has_many :arriving_passengers, through: :arriving_flights, source: :passengers
+
+
+TO ADD LATER:
+  belongs_to :city
 
 City
--name string
+  name string
 
-belongs_to :region
+  belongs_to :region
 
 Region
--name string
--same_as_country boolean
+  name string
+  same_as_country boolean
 
-has_many :cities
-has_many :airports, through: :cities
-belongs_to :country
+  has_many :cities
+  has_many :airports, through: :cities
+  belongs_to :country
 
 Country
--name string
+  name string
 
-has_many :regions
-has_many :cities, through: :regions
-has_many :airports, through: :cities
+  has_many :regions
+  has_many :cities, through: :regions
+  has_many :airports, through: :cities
