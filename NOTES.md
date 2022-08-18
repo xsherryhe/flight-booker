@@ -1,41 +1,52 @@
 Data models
 
-Passenger
--first_name
--middle_name
--last_name
--birthdate
+Order
+  has_many :bookings
 
-belongs_to :flight
-has_one :seat
+Booking
+  checked_bags integer
+
+  belongs_to :passenger
+  belongs_to :seat
+
+Passenger
+  first_name string
+  middle_name string
+  last_name string
+  birthdate date
+
+  has_one :booking
+  has_one :seat, through: :booking
 
 Seat
--number
+  identifier string
 
-belongs_to :flight
-belongs_to :passenger
+  belongs_to :flight
+  has_one :booking
+  has_one :passenger, through: :booking
 
 Flight
--number
+  identifier string
 
-has_many :seats
-has_many :passengers, through: :seats
-belongs_to :airline
-belongs_to :origin, class_name: Airport
-belongs_to :destination, class_name: Airport
+  has_many :seats
+  has_many :passengers, through: :seats
+  belongs_to :airline
+  belongs_to :departure_airport, class_name: Airport
+  belongs_to :arrival_airport, class_name: Airport
 
 Airline
--name string
+  name string
+  code string
 
-has_many :flights
-has_many :passengers, through: :flights
+  has_many :flights
+  has_many :bookings, through: :flights
 
 Airport
 -name string
 
 belongs_to :city
-has_many :departing_flights, foreign_key: origin_id
-has_many :arriving_flights, foreign_key: destination_id
+has_many :departing_flights, foreign_key: departure_airport_id
+has_many :arriving_flights, foreign_key: arrival_airport_id
 has_many :departing_passengers, through: :departing_flights, source: :passengers
 has_many :arriving_passengers, through: :arriving_flights, source: :passengers
 
