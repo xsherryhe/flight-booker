@@ -32,6 +32,7 @@ Flight
   duration as model attribute
 
   has_many :seats
+  has_many :bookings, through :seats
   has_many :passengers, through: :seats
   belongs_to :airline
   belongs_to :departure_airport, class_name: Airport
@@ -47,8 +48,8 @@ Airport
   name string
   code string
 
-  has_many :departing_flights, foreign_key: departure_airport_id
-  has_many :arriving_flights, foreign_key: arrival_airport_id
+  has_many :departing_flights, class_name: Flight, foreign_key: departure_airport_id
+  has_many :arriving_flights, class_name: Flight, foreign_key: arrival_airport_id
   has_many :departing_passengers, through: :departing_flights, source: :passengers
   has_many :arriving_passengers, through: :arriving_flights, source: :passengers
 
