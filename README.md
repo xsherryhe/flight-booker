@@ -1,24 +1,6 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is an app that mimics the process and forms required to book a one-way flight. It is built using Ruby on Rails.
 
-Things you may want to cover:
+The project primarily demonstrates more complex Active Record and form concepts, such as callbacks, nested attributes, and collections for the `<select>` tag.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This project is currently in progress.
