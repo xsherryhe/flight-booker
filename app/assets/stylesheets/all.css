@@ -1,0 +1,49 @@
+:root {
+  --secondary-color: rgb(84, 33, 212);
+  --font-color: rgb(34, 33, 37);
+  --site-font: 'Helvetica';
+  --horizontal-content-padding: 6vw;
+  --vertical-content-padding: 2rem;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--site-font);
+  font-size: 1rem;
+  color: var(--font-color);
+  line-height: 1.6rem;
+  background-color: var(--secondary-color);
+}
+
+.content {
+  padding: var(--vertical-content-padding) var(--horizontal-content-padding);
+  margin: 0 8vw;
+  min-height: 100vh;
+  background-color: white;
+}
+
+.label {
+  display: inline;
+}
+
+h1 {
+  font-family: var(--site-font);
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+h3,
+h4,
+h5,
+ul,
+p,
+section {
+  margin: 0;
+}
+
+a {
+  color: var(--secondary-color);
+}

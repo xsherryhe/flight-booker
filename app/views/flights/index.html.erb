@@ -1,3 +1,4 @@
+<% content_for :page_classes do 'form flights flights-index' end %>
 <h1>Book a Flight</h1>
 
 <%= form_with scope: :search, method: :get do |form| %>
@@ -29,28 +30,31 @@
     <%= form.select :number_of_passengers, 
         options_for_select(('1'..'4'), @search_params[:number_of_passengers]) %>
   </div>
-  <%= form.submit 'Search' %>
+  <div class="submit"><%= form.submit 'Search' %></div>
 <% end %>
 
 <% if @all_flights %>
   <% if @all_flights.empty? %>
     <p>Sorry, no flights matched your search.</p>
   <% else %>
-    <% @page_flights.each do |flight| %>
-      <div class="flight">
-        <%= render 'shared/flight_details', flight: flight %>
-        <div class="flight-selection">
-          <%= link_to 'Book This Flight', new_booking_path(flight_id: flight.id, 
-                                                           number_of_passengers: @search_params[:number_of_passengers]) %>
+    <h2>Available Flights</h2>
+    <div class="flights">
+      <% @page_flights.each do |flight| %>
+        <div class="flight">
+          <%= render 'shared/flight_details', flight: flight %>
+          <div class="flight-selection">
+            <%= link_to 'Book This Flight', new_booking_path(flight_id: flight.id,
+                                                             number_of_passengers: @search_params[:number_of_passengers]) %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
     <div class="pagination-links">
       <h4 class="label">Page:</h4>
       <%= link_to '<', flights_path(page: [@page - 1, 1].max, search: @search_params) %>
-      <% ([1, @page - 10].max..[@page + 10, max_page = (@all_flights.size / 10.0).ceil].min).each do |page_num| %>
+      <% ([1, @page - 15].max..[@page + 15, max_page = (@all_flights.size / 10.0).ceil].min).each do |page_num| %>
         <%= link_to "#{page_num}", flights_path(page: page_num, search: @search_params), 
-                                   class: ('curr_page' if page_num == @page) %>
+                                   class: ('curr-page' if page_num == @page) %>
       <% end %>
       <%= link_to '>', flights_path(page: [@page + 1, max_page].min, search: @search_params) %>
     </div>

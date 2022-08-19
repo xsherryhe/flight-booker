@@ -1,0 +1,30 @@
+.flights-index .flights {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  font-size: 0.9rem;
+  border: var(--secondary-color) solid 1px;
+}
+
+.flights-index .flights > * {
+  border: var(--secondary-color) solid 1px;
+  padding: 1.5rem;
+}
+
+.flights-index .pagination-links {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.flights-index .pagination-links a {
+  text-decoration: none;
+}
+
+.flights-index .pagination-links a:hover {
+  text-decoration: underline;
+}
+
+.flights-index .curr-page {
+  font-weight: 900;
+}
