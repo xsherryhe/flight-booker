@@ -1,4 +1,4 @@
-<h1>Search Flights</h1>
+<h1>Book a Flight</h1>
 
 <%= form_with scope: :search, method: :get do |form| %>
   <div class="field">
@@ -37,25 +37,32 @@
   <% if @flights.empty? %>
     <p>Sorry, no flights matched your search.</p>
   <% else %>
-    <% @flights.each do |flight| %>
-      <div class="flight">
-        <div class="departure-time">
-          <h4>Departure Time:</h4>
-          <%= flight.departure_time %>
+    <%= form_with method: :get, url: new_booking_path do |form| %>
+      <%= form.hidden_field :number_of_passengers, value: @search_params[:number_of_passengers] %>
+      <% @flights.each do |flight| %>
+        <div class="flight">
+          <div class="departure-time">
+            <h4>Departure Time:</h4>
+            <%= flight.departure_time %>
+          </div>
+          <div class="arrival-time">
+            <h4>Arrival Time:</h4>
+            <%= flight.arrival_time %>
+          </div>
+          <div class="departure-airport">
+            <h4>Departure Airport:</h4>
+            <%= flight.departure_airport.name_code_display %>
+          </div>
+          <div class="arrival-airport">
+            <h4>Arrival Airport:</h4>
+            <%= flight.arrival_airport.name_code_display %>
+          </div>
+          <div class="flight-selection">
+            <%= form.radio_button :flight_id, flight.id %>
+            <%= form.label "flight_id_#{flight.id}", 'Book This Flight' %>
+          </div>
         </div>
-        <div class="arrival-time">
-          <h4>Arrival Time:</h4>
-          <%= flight.arrival_time %>
-        </div>
-        <div class="departure-airport">
-          <h4>Departure Airport:</h4>
-          <%= flight.departure_airport.name_code_display %>
-        </div>
-        <div class="arrival-airport">
-          <h4>Arrival Airport:</h4>
-          <%= flight.arrival_airport.name_code_display %>
-        </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
