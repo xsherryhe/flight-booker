@@ -6,8 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Flight.delete_all
-Airport.delete_all
 [['San Francisco International', 'SFO'],
  ['John F. Kennedy International', 'JFK'],
  ["Chicago O'Hare International", 'ORD'],
@@ -18,8 +16,16 @@ Airport.delete_all
    Airport.create(name:, code:)
  end
 
+%w[JetGreen Unified Epsilon Northeast Soul AirWorld States].each do |name|
+  Airline.create(name:)
+end
+
 def identifier
   [*'A'..'Z', *'0'..'9'].sample(5).join
+end
+
+def airline
+  Airline.all.sample
 end
 
 def arrival_time(departure_time)
@@ -35,7 +41,7 @@ def create_flight
   departure_airport = Airport.all.sample
 
   Flight.create(identifier:, departure_time:, arrival_time: arrival_time(departure_time),
-                departure_airport:, arrival_airport: arrival_airport(departure_airport))
+                airline:, departure_airport:, arrival_airport: arrival_airport(departure_airport))
 end
 
 500.times { create_flight }

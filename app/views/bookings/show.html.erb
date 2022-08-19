@@ -1,22 +1,6 @@
 <h2>You have successfully booked your flight!</h2>
 <%= link_to 'Book Another Flight', flights_path %>
-
-<div class="flight-identifier">
-  <h4 class="label">Flight Number:</h4>
-  <%= @flight.identifier %>
-</div>
-<div class="flight-date">
-  <h4 class="label">Date of Flight:</h4>
-  <%= @flight.departure_time.strftime('%B %-d, %Y') %>
-</div>
-<div class="flight-departure-airport">
-  <h4 class="label">Departure From:</h4>
-  <%= @flight.departure_airport.name_code_display %>
-</div>
-<div class="flight-arrival-airport">
-  <h4 class="label">Arrival At:</h4>
-  <%= @flight.arrival_airport.name_code_display %>
-</div>
+<%= render 'shared/flight_details', flight: @booking.flight %>
 
 <div class="passengers">
   <h4>Passenger Information</h4>

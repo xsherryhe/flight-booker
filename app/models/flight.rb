@@ -3,7 +3,8 @@ class Flight < ApplicationRecord
 
   belongs_to :departure_airport, class_name: 'Airport'
   belongs_to :arrival_airport, class_name: 'Airport'
-  has_many :bookings
+  belongs_to :airline
+  has_many :bookings, dependent: :destroy
   has_many :passengers, through: :bookings
 
   scope :on_departure_date, (lambda do |date|
@@ -26,8 +27,10 @@ class Flight < ApplicationRecord
     .departing_from_airport(search_params[:departure_airport_id])
     .arriving_at_airport(search_params[:arrival_airport_id])
     .order(:departure_time)
-    .includes(:departure_airport, :arrival_airport)
+    .includes(:airline, :departure_airport, :arrival_airport)
   end)
+
+  scope :from_page, ->(page, per_page) { limit(per_page).offset((page.to_i - 1) * per_page) }
 
   def self.parse_search_params(search_params)
     search_params.merge({ departure_date: parse_date_from_params(:departure_date, search_params) })

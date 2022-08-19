@@ -27,43 +27,32 @@
   <div class="field">
     <%= form.label :number_of_passengers, 'Number of passengers:' %>
     <%= form.select :number_of_passengers, 
-        options_for_select((1..4)), 
-        selected: @search_params[:number_of_passengers] %>
+        options_for_select(('1'..'4'), @search_params[:number_of_passengers]) %>
   </div>
   <%= form.submit 'Search' %>
 <% end %>
 
-<% if @flights %>
-  <% if @flights.empty? %>
+<% if @all_flights %>
+  <% if @all_flights.empty? %>
     <p>Sorry, no flights matched your search.</p>
   <% else %>
-    <%= form_with method: :get, url: new_booking_path do |form| %>
-      <%= form.hidden_field :number_of_passengers, value: @search_params[:number_of_passengers] %>
-      <% @flights.each do |flight| %>
-        <div class="flight">
-          <div class="departure-time">
-            <h4 class="label">Departure Time:</h4>
-            <%= flight.departure_time %>
-          </div>
-          <div class="arrival-time">
-            <h4 class="label">Arrival Time:</h4>
-            <%= flight.arrival_time %>
-          </div>
-          <div class="departure-airport">
-            <h4 class="label">Departure Airport:</h4>
-            <%= flight.departure_airport.name_code_display %>
-          </div>
-          <div class="arrival-airport">
-            <h4 class="label">Arrival Airport:</h4>
-            <%= flight.arrival_airport.name_code_display %>
-          </div>
-          <div class="flight-selection">
-            <%= form.radio_button :flight_id, flight.id %>
-            <%= form.label "flight_id_#{flight.id}", 'Book This Flight' %>
-          </div>
+    <% @page_flights.each do |flight| %>
+      <div class="flight">
+        <%= render 'shared/flight_details', flight: flight %>
+        <div class="flight-selection">
+          <%= link_to 'Book This Flight', new_booking_path(flight_id: flight.id, 
+                                                           number_of_passengers: @search_params[:number_of_passengers]) %>
         </div>
-      <% end %>
-      <%= form.submit 'Submit' %>
+      </div>
     <% end %>
+    <div class="pagination-links">
+      <h4 class="label">Page:</h4>
+      <%= link_to '<', flights_path(page: [@page - 1, 1].max, search: @search_params) %>
+      <% ([1, @page - 10].max..[@page + 10, max_page = (@all_flights.size / 10.0).ceil].min).each do |page_num| %>
+        <%= link_to "#{page_num}", flights_path(page: page_num, search: @search_params), 
+                                   class: ('curr_page' if page_num == @page) %>
+      <% end %>
+      <%= link_to '>', flights_path(page: [@page + 1, max_page].min, search: @search_params) %>
+    </div>
   <% end %>
 <% end %>
