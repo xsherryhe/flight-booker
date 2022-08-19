@@ -30,13 +30,12 @@ def arrival_airport(departure_airport)
   Airport.where.not(id: departure_airport.id).sample
 end
 
-def create_flight(departure_time = nil)
-  departure_time ||= rand(1..1000).days.from_now + rand(24).hours + rand(60).minutes
+def create_flight
+  departure_time = rand(0..365).days.from_now + rand(24).hours + rand(60).minutes
   departure_airport = Airport.all.sample
 
   Flight.create(identifier:, departure_time:, arrival_time: arrival_time(departure_time),
                 departure_airport:, arrival_airport: arrival_airport(departure_airport))
 end
 
-10.times { create_flight }
-10.times { create_flight(Flight.all.sample.departure_time + rand(2).hours) }
+500.times { create_flight }

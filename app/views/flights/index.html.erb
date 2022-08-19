@@ -1,23 +1,61 @@
 <h1>Search Flights</h1>
 
-<%= form_with method: :get do |form| %>
+<%= form_with scope: :search, method: :get do |form| %>
   <div class="field">
-    <%= form.label :departure_time, 'Departure date:' %>
-    <%= form.date_select :departure_time,
+    <%= form.label :departure_date, 'Departure date:' %>
+    <%= form.date_select :departure_date,
                          start_year: @start_year,
                          end_year: @end_year,
-                         order: %i[month day year] %>
+                         selected: @search_params[:departure_date],
+                         order: %i[month day year],
+                         prompt: true %>
   </div>
   <div class="field">
     <%= form.label :departure_airport_id, 'Departure airport:' %>
-    <%= form.collection_select :departure_airport_id, @airport_options, :id, :name_code_display %>
+    <%= form.collection_select :departure_airport_id, 
+                               @airport_options, :id, :name_code_display,
+                               selected: @search_params[:departure_airport_id],
+                               include_blank: 'All Airports' %>
   </div>
   <div class="field">
     <%= form.label :arrival_airport_id, 'Arrival airport:' %>
-    <%= form.collection_select :arrival_airport_id, @airport_options, :id, :name_code_display %>
+    <%= form.collection_select :arrival_airport_id, 
+                               @airport_options, :id, :name_code_display,
+                               selected: @search_params[:arrival_airport_id],
+                               include_blank: 'All Airports' %>
   </div>
   <div class="field">
     <%= form.label :number_of_passengers, 'Number of passengers:' %>
-    <%= form.select :number_of_passengers, options_for_select((1..4)) %>
+    <%= form.select :number_of_passengers, 
+        options_for_select((1..4)), 
+        selected: @search_params[:number_of_passengers] %>
   </div>
+  <%= form.submit 'Search' %>
+<% end %>
+
+<% if @flights %>
+  <% if @flights.empty? %>
+    <p>Sorry, no flights matched your search.</p>
+  <% else %>
+    <% @flights.each do |flight| %>
+      <div class="flight">
+        <div class="departure-time">
+          <h4>Departure Time:</h4>
+          <%= flight.departure_time %>
+        </div>
+        <div class="arrival-time">
+          <h4>Arrival Time:</h4>
+          <%= flight.arrival_time %>
+        </div>
+        <div class="departure-airport">
+          <h4>Departure Airport:</h4>
+          <%= flight.departure_airport.name_code_display %>
+        </div>
+        <div class="arrival-airport">
+          <h4>Arrival Airport:</h4>
+          <%= flight.arrival_airport.name_code_display %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>
