@@ -42,19 +42,19 @@
       <% @flights.each do |flight| %>
         <div class="flight">
           <div class="departure-time">
-            <h4>Departure Time:</h4>
+            <h4 class="label">Departure Time:</h4>
             <%= flight.departure_time %>
           </div>
           <div class="arrival-time">
-            <h4>Arrival Time:</h4>
+            <h4 class="label">Arrival Time:</h4>
             <%= flight.arrival_time %>
           </div>
           <div class="departure-airport">
-            <h4>Departure Airport:</h4>
+            <h4 class="label">Departure Airport:</h4>
             <%= flight.departure_airport.name_code_display %>
           </div>
           <div class="arrival-airport">
-            <h4>Arrival Airport:</h4>
+            <h4 class="label">Arrival Airport:</h4>
             <%= flight.arrival_airport.name_code_display %>
           </div>
           <div class="flight-selection">
@@ -63,6 +63,7 @@
           </div>
         </div>
       <% end %>
+      <%= form.submit 'Submit' %>
     <% end %>
   <% end %>
 <% end %>

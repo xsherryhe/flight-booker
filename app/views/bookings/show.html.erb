@@ -1,0 +1,42 @@
+<h2>You have successfully booked your flight!</h2>
+<%= link_to 'Book Another Flight', flights_path %>
+
+<div class="flight-identifier">
+  <h4 class="label">Flight Number:</h4>
+  <%= @flight.identifier %>
+</div>
+<div class="flight-date">
+  <h4 class="label">Date of Flight:</h4>
+  <%= @flight.departure_time.strftime('%B %-d, %Y') %>
+</div>
+<div class="flight-departure-airport">
+  <h4 class="label">Departure From:</h4>
+  <%= @flight.departure_airport.name_code_display %>
+</div>
+<div class="flight-arrival-airport">
+  <h4 class="label">Arrival At:</h4>
+  <%= @flight.arrival_airport.name_code_display %>
+</div>
+
+<div class="passengers">
+  <h4>Passenger Information</h4>
+  <% @booking.passengers.each.with_index(1) do |passenger, i| %>
+    <h5>Passenger # <%= i %></h5>
+    <div class="passenger">
+      <div class="name">
+        <h4>Name:</h4>
+        <%= %i[first_name middle_name last_name]
+              .map { |attribute| passenger[attribute] }
+              .join(' ') %>
+      </div>
+      <div class="date-of-birth">
+        <h4>Date of birth:</h4>
+        <%= passenger.date_of_birth.strftime('%m/%d/%Y') %>
+      </div>
+      <div class="email">
+        <h4>Email address:</h4>
+        <%= passenger.email %>
+      </div>
+    </div>
+  <% end %>
+</div>
