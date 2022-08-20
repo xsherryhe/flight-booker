@@ -1,5 +1,9 @@
-<h2>You have successfully booked your flight!</h2>
-<%= link_to 'Book Another Flight', flights_path %>
+<% content_for :page_classes do 'bookings bookings-show' end %>
+
+<h2>
+  You have successfully booked your flight! 
+  <%= link_to 'Book Another Flight', flights_path %>
+</h2>
 <%= render 'shared/flight_details', flight: @booking.flight %>
 
 <div class="passengers">
@@ -8,17 +12,17 @@
     <h5>Passenger # <%= i %></h5>
     <div class="passenger">
       <div class="name">
-        <h4>Name:</h4>
+        <h4 class="label">Name:</h4>
         <%= %i[first_name middle_name last_name]
               .map { |attribute| passenger[attribute] }
               .join(' ') %>
       </div>
       <div class="date-of-birth">
-        <h4>Date of birth:</h4>
+        <h4 class="label">Date of Birth:</h4>
         <%= passenger.date_of_birth.strftime('%m/%d/%Y') %>
       </div>
       <div class="email">
-        <h4>Email address:</h4>
+        <h4 class="label">Email Address:</h4>
         <%= passenger.email %>
       </div>
     </div>
