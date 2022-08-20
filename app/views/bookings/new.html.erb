@@ -1,20 +1,28 @@
+<% content_for :page_classes do 'form bookings bookings-new' end %>
+
+<%= link_to 'Back to Flights', flights_path, class: 'back-link' %>
+<h2>Flight Booking for <%= "#{@booking.flight.airline.name} #{@booking.flight.identifier}" %></h2>
 <%= simple_form_for @booking do |form| %>
   <%= form.input :flight_id, as: :hidden %>
+  <%= hidden_field_tag :number_of_passengers, @booking.passengers.size %>
   <%= render 'shared/flight_details', flight: @booking.flight %>
 
   <div class="passengers">
     <h4>Passenger Information</h4>
+    <% @booking.errors[:passengers].each do |error| %>
+      <div class="error"><%= error %></div>
+    <% end %>
     <%= form.fields_for :passengers do |passenger_form| %>
       <h5>Passenger # <%= passenger_form.index + 1 %></h5>
       <div class="passenger">
         <%= passenger_form.input :first_name %>
         <%= passenger_form.input :middle_name %>
         <%= passenger_form.input :last_name %>
-        <%= passenger_form.input :date_of_birth, order: %i[month day year], html5: true %>
-        <%= passenger_form.input :email, label: 'Email address' %>
+        <%= passenger_form.input :date_of_birth, label: 'Date of Birth', order: %i[month day year], html5: true %>
+        <%= passenger_form.input :email, label: 'Email Address' %>
       </div>
     <% end %>
   </div>
 
-  <%= form.submit 'Book Flight' %>
+  <div class="submit"><%= form.submit 'Book Flight' %></div>
 <% end %>

@@ -10,6 +10,7 @@ class BookingsController < ApplicationController
     if @booking.save
       redirect_to @booking
     else
+      @booking.passengers.build while @booking.passengers.size < params[:number_of_passengers].to_i
       render :new, status: :unprocessable_entity
     end
   end

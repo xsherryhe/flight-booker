@@ -14,5 +14,6 @@
  *= require all.css
  *= require form.css
  *= require_tree './flights'
+ *= require_tree './bookings'
  *= require_self
  */

@@ -1,0 +1,21 @@
+.bookings-new .passenger {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 0.8rem;
+  column-gap: 1.5rem;
+  margin-bottom: 2.2rem;
+}
+
+.bookings-new label {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.bookings-new .passenger > * {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookings-new .booking_passengers_email {
+  grid-column: 2 / span 2;
+}
