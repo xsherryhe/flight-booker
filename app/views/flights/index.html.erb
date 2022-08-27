@@ -41,7 +41,7 @@
     <div class="flights">
       <% @page_flights.each do |flight| %>
         <div class="flight">
-          <%= render 'shared/flight_details', flight: flight %>
+          <%= render flight %>
           <div class="flight-selection">
             <%= link_to 'Book This Flight', new_booking_path(flight_id: flight.id,
                                                              number_of_passengers: @search_params[:number_of_passengers]) %>

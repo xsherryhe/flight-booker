@@ -5,7 +5,7 @@
 <%= simple_form_for @booking do |form| %>
   <%= form.input :flight_id, as: :hidden %>
   <%= hidden_field_tag :number_of_passengers, @booking.passengers.size %>
-  <%= render 'shared/flight_details', flight: @booking.flight %>
+  <%= render @booking.flight %>
 
   <div class="passengers">
     <h4>Passenger Information</h4>
