@@ -1,0 +1,12 @@
+<h2>Thanks for booking your your flight with us, <%= @passenger.first_name %>!</h2>
+
+<%= render @flight %>
+
+<h4>Passenger Information</h4>
+<%= render @passenger %>
+
+<h4>
+  Got more places to go?
+  <%= link_to 'Book Another Flight', flights_url %>
+</h4>
+

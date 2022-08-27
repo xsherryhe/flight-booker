@@ -1,0 +1,23 @@
+Thanks for booking your your flight with us, <%= @passenger.first_name %>!
+
+<%= '*' * 50 %>
+
+Flight (Airline & Number): <%= "#{@flight.airline.name} #{@flight.identifier}" %>
+Departure Time: <%= @flight.departure_time.strftime('%B %-d, %Y at %-l:%M %p') %>
+Arrival Time: <%= @flight.arrival_time.strftime('%B %-d, %Y at %-l:%M %p') %>
+Departure From: <%= @flight.departure_airport.name_code_display %>
+Arrival At: <%= @flight.arrival_airport.name_code_display %>
+
+<%= '*' * 50 %>
+
+Passenger Information:
+-Name: <%= %i[first_name middle_name last_name]
+              .filter_map { |attribute| @passenger[attribute] }
+              .join(' ') %>
+-Date of Birth: <%= @passenger.date_of_birth.strftime('%m/%d/%Y') %>
+-Email Address: <%= @passenger.email %>
+
+<%= '*' * 50 %>
+
+Got more places to go? 
+Book another flight here: <%= flights_url %>
