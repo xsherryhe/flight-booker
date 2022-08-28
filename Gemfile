@@ -80,3 +80,4 @@ end
 
 gem 'simple_form'
 gem 'letter_opener', group: :development
+gem 'figaro'
