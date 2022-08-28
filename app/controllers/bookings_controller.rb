@@ -33,7 +33,7 @@ class BookingsController < ApplicationController
   def send_confirmation_emails
     @booking.passengers.each do |passenger|
       PassengerMailer.with(passenger:, booking: @booking)
-                     .confirmation_email.deliver_later
+                     .confirmation_email.deliver
     end
   end
 end

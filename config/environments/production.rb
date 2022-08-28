@@ -95,13 +95,12 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'rocky-shore-24771.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
 
-  ActionMailer::Base.smtp_settings = {
+  config.action_mailer.smtp_settings = {
     port: ENV['MAILGUN_SMTP_PORT'],
     address: ENV['MAILGUN_SMTP_SERVER'],
     username: ENV['MAILGUN_SMTP_LOGIN'],
     password: ENV['MAILGUN_SMTP_PASSWORD'],
     domain: 'rocky-shore-24771.herokuapp.com',
-    authentication: :plain,
-    enable_starttls_auto: true
+    authentication: :plain
   }
 end
