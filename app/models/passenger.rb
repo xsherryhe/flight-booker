@@ -6,4 +6,10 @@ class Passenger < ApplicationRecord
                                           message: 'cannot be later than today' }
   validates :email, presence: true, format: { with: /.+@.+\..+/ }
   belongs_to :booking
+
+  def full_name
+    %i[first_name middle_name last_name]
+     .filter_map { |attribute| self[attribute] unless self[attribute].blank? }
+     .join(' ')
+  end
 end

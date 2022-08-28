@@ -11,9 +11,7 @@ Arrival At: <%= @flight.arrival_airport.name_code_display %>
 <%= '*' * 50 %>
 
 Passenger Information:
--Name: <%= %i[first_name middle_name last_name]
-            .filter_map { |attribute| @passenger[attribute] unless @passenger[attribute].blank? }
-            .join(' ') %>
+-Name: <%= @passenger.full_name %>
 -Date of Birth: <%= @passenger.date_of_birth.strftime('%m/%d/%Y') %>
 -Email Address: <%= @passenger.email %>
 

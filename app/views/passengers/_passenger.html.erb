@@ -1,9 +1,7 @@
 <div class="passenger">
   <div class="name">
     <h4 class="label">Name:</h4>
-    <%= %i[first_name middle_name last_name]
-          .map { |attribute| passenger[attribute] }
-          .join(' ') %>
+    <%= passenger.full_name %>
   </div>
   <div class="date-of-birth">
     <h4 class="label">Date of Birth:</h4>
