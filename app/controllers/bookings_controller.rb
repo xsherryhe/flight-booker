@@ -34,7 +34,7 @@ class BookingsController < ApplicationController
     @booking.passengers.each do |passenger|
       PassengerMailer.with(passenger:, booking: @booking)
                      .confirmation_email.deliver
-    rescue NET::SMTPUnknownError
+    rescue Net::SMTPUnknownError
       continue
     end
   end
